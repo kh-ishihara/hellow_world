@@ -1,0 +1,18 @@
+on:
+  push:
+    tags:
+      - 'release_*'
+  workflow_dispatch:  # 手動トリガー
+
+jobs:
+  echo-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Hello on Tag Push
+        if: startsWith(github.ref, 'refs/tags/release_')
+        run: echo "Hello world"
+
+      - name: Hello on Manual Trigger
+        if: github.event_name == 'workflow_dispatch'
+        run: echo "Hello world 2"
